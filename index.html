@@ -1,10 +1,964 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>My GitHub Pages Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Keegan Edwards | Technical Artist</title>
+    <meta
+      name="description"
+      content="Portfolio site for Keegan Edwards, a technical artist focused on performance, tooling, and content pipelines."
+    >
+    <style>
+      :root {
+        --bg: #09090b;
+        --panel: rgba(24, 24, 27, 0.8);
+        --panel-soft: rgba(39, 39, 42, 0.35);
+        --line: rgba(82, 82, 91, 0.55);
+        --line-strong: rgba(113, 113, 122, 0.85);
+        --text: #f4f4f5;
+        --muted: #a1a1aa;
+        --muted-strong: #d4d4d8;
+        --accent: #d97706;
+        --accent-soft: rgba(217, 119, 6, 0.14);
+        --shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+        --radius: 22px;
+        --radius-sm: 16px;
+        --content-width: 1120px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(circle at top, rgba(217, 119, 6, 0.12), transparent 30%),
+          linear-gradient(180deg, #111114 0%, var(--bg) 32%, #050507 100%);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button {
+        font: inherit;
+      }
+
+      img {
+        display: block;
+        max-width: 100%;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid var(--line);
+        background: rgba(9, 9, 11, 0.86);
+        backdrop-filter: blur(16px);
+      }
+
+      .header-inner,
+      .shell,
+      .footer-inner {
+        width: min(calc(100% - 32px), var(--content-width));
+        margin: 0 auto;
+      }
+
+      .header-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 0;
+      }
+
+      .brand {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 10px;
+      }
+
+      .brand-name {
+        font-size: 0.95rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+      }
+
+      .brand-role {
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .nav-link {
+        border: 1px solid transparent;
+        border-radius: 999px;
+        padding: 8px 14px;
+        color: var(--muted-strong);
+        transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        border-color: var(--line);
+        background: var(--panel-soft);
+        color: var(--text);
+      }
+
+      .shell {
+        padding: 48px 0 72px;
+      }
+
+      .page {
+        display: grid;
+        gap: 28px;
+      }
+
+      .page-title h1 {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 3.4rem);
+        line-height: 1.05;
+        letter-spacing: -0.04em;
+      }
+
+      .page-title p {
+        max-width: 760px;
+        margin: 14px 0 0;
+        color: var(--muted);
+        font-size: 1rem;
+        line-height: 1.7;
+      }
+
+      .hero {
+        display: grid;
+        gap: 18px;
+        padding: 32px;
+        border: 1px solid var(--line);
+        border-radius: calc(var(--radius) + 6px);
+        background:
+          linear-gradient(135deg, rgba(39, 39, 42, 0.7), rgba(24, 24, 27, 0.65)),
+          rgba(10, 10, 12, 0.85);
+        box-shadow: var(--shadow);
+      }
+
+      .hero-kicker {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        width: fit-content;
+        padding: 7px 12px;
+        border: 1px solid rgba(217, 119, 6, 0.3);
+        border-radius: 999px;
+        background: var(--accent-soft);
+        color: #fed7aa;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hero-grid {
+        display: grid;
+        gap: 24px;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+      }
+
+      .hero-copy p {
+        margin: 0;
+        max-width: 760px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .cta-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        min-height: 44px;
+        padding: 10px 16px;
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        background: var(--panel-soft);
+        color: var(--text);
+        cursor: pointer;
+        transition: transform 0.18s ease, border-color 0.18s ease, background-color 0.18s ease;
+      }
+
+      .button:hover {
+        transform: translateY(-1px);
+        border-color: var(--line-strong);
+      }
+
+      .button.primary {
+        border-color: rgba(217, 119, 6, 0.48);
+        background: linear-gradient(180deg, rgba(245, 158, 11, 0.18), rgba(217, 119, 6, 0.12));
+      }
+
+      .hero-facts {
+        display: grid;
+        gap: 12px;
+      }
+
+      .stat-card,
+      .card,
+      .note,
+      .info-panel,
+      .placeholder {
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        background: var(--panel);
+      }
+
+      .stat-card {
+        padding: 18px 20px;
+      }
+
+      .stat-card strong {
+        display: block;
+        font-size: 1.6rem;
+        letter-spacing: -0.03em;
+      }
+
+      .stat-card span {
+        display: block;
+        margin-top: 6px;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .section-heading h2 {
+        margin: 0;
+        font-size: 1.3rem;
+        letter-spacing: -0.03em;
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .portfolio-grid,
+      .detail-grid,
+      .about-grid,
+      .skills-grid,
+      .extra-grid {
+        display: grid;
+        gap: 18px;
+      }
+
+      .portfolio-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .portfolio-card {
+        display: grid;
+        overflow: hidden;
+        cursor: pointer;
+        transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .portfolio-card:hover {
+        transform: translateY(-4px);
+        border-color: var(--line-strong);
+        box-shadow: var(--shadow);
+      }
+
+      .portfolio-card img {
+        aspect-ratio: 16 / 10;
+        object-fit: cover;
+      }
+
+      .portfolio-card-body,
+      .card-body {
+        padding: 20px;
+      }
+
+      .portfolio-card-head {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .portfolio-card h3,
+      .card h3,
+      .detail-title,
+      .work-title {
+        margin: 0;
+        letter-spacing: -0.03em;
+      }
+
+      .portfolio-card p,
+      .card p,
+      .note p,
+      .detail-copy,
+      .list,
+      .breadcrumb,
+      .footer-links a,
+      .quick-notes li {
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .chip {
+        flex: 0 0 auto;
+        padding: 5px 10px;
+        border: 1px solid rgba(217, 119, 6, 0.26);
+        border-radius: 999px;
+        color: #fdba74;
+        font-size: 0.78rem;
+      }
+
+      .note {
+        padding: 24px;
+      }
+
+      .note strong {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 0.95rem;
+      }
+
+      .work-layout {
+        display: grid;
+        gap: 26px;
+      }
+
+      .breadcrumb-row {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .breadcrumb {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 0.92rem;
+      }
+
+      .hero-image,
+      .extra-image {
+        overflow: hidden;
+        border-radius: var(--radius);
+        border: 1px solid var(--line);
+        background: rgba(24, 24, 27, 0.65);
+      }
+
+      .hero-image img,
+      .extra-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      .detail-grid,
+      .about-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .card {
+        overflow: hidden;
+      }
+
+      .card-body h3,
+      .detail-title {
+        font-size: 1.05rem;
+      }
+
+      .eyebrow {
+        margin-bottom: 8px;
+        color: #d4d4d8;
+        font-size: 0.76rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .stack {
+        display: grid;
+        gap: 18px;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .skill-card,
+      .info-panel,
+      .placeholder {
+        padding: 20px;
+        border-radius: var(--radius-sm);
+      }
+
+      .skill-card {
+        border: 1px solid var(--line);
+        background: rgba(9, 9, 11, 0.42);
+      }
+
+      .skill-card h3,
+      .info-panel h3 {
+        margin: 0 0 12px;
+        font-size: 1rem;
+      }
+
+      .list,
+      .quick-notes {
+        margin: 0;
+        padding-left: 18px;
+      }
+
+      .link-list {
+        display: grid;
+        gap: 12px;
+      }
+
+      .external-link {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: var(--radius-sm);
+        background: rgba(9, 9, 11, 0.42);
+        transition: border-color 0.18s ease, transform 0.18s ease;
+      }
+
+      .external-link:hover {
+        transform: translateY(-1px);
+        border-color: var(--line-strong);
+      }
+
+      .extra-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .placeholder {
+        display: grid;
+        place-items: center;
+        min-height: 220px;
+        border-style: dashed;
+        color: var(--muted);
+        text-align: center;
+        background: rgba(9, 9, 11, 0.3);
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        background: rgba(9, 9, 11, 0.65);
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 24px 0 40px;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .footer-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .muted {
+        color: var(--muted);
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @media (max-width: 980px) {
+        .hero-grid,
+        .portfolio-grid,
+        .detail-grid,
+        .about-grid,
+        .skills-grid,
+        .extra-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .header-inner,
+        .footer-inner,
+        .section-heading,
+        .breadcrumb-row {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .shell {
+          padding-top: 28px;
+        }
+
+        .hero,
+        .portfolio-card-body,
+        .card-body,
+        .note,
+        .skill-card,
+        .info-panel,
+        .placeholder {
+          padding: 18px;
+        }
+
+        .page-title h1 {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Hello from GitHub Pages</h1>
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <div class="brand-name">Keegan Edwards</div>
+          <div class="brand-role">Technical Artist</div>
+        </div>
+        <nav class="nav" aria-label="Primary">
+          <a class="nav-link" data-route-link href="#/">Home</a>
+          <a class="nav-link" data-route-link href="#/about">About</a>
+        </nav>
+      </div>
+    </header>
+
+    <main class="shell">
+      <div id="app"></div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <div id="footer-copy"></div>
+        <div class="footer-links">
+          <a id="footer-linkedin" href="https://www.linkedin.com/in/YOUR_LINKEDIN" target="_blank" rel="noreferrer">LinkedIn</a>
+          <a id="footer-resume" href="https://YOUR_RESUME_LINK" target="_blank" rel="noreferrer">Resume</a>
+          <a id="footer-email" href="mailto:you@example.com">Email</a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const BRAND = {
+        name: "Keegan Edwards",
+        title: "Technical Artist"
+      };
+
+      const ABOUT = {
+        blurb:
+          "Senior Technical Artist focused on environment performance, rendering diagnostics, tools, and pipelines. I bridge art and engineering with production-ready tooling, profiling, and scalable content workflows.",
+        story: [
+          "I specialize in the space where environment art meets engine performance: diagnosing GPU and CPU costs, building tools that keep content scalable, and partnering with rendering and shading engineers to make fixes stick.",
+          "This template is ready for your real project history, shipped titles, and measurable outcomes. Replacing the placeholders with your production examples will make the site feel immediately personal."
+        ],
+        skills: [
+          {
+            title: "Performance and Profiling",
+            bullets: [
+              "Unreal Insights traces for CPU and GPU bottlenecks",
+              "Shadow, lighting, LOD, and culling strategy analysis",
+              "Nanite, VSM, and content-driven optimization passes"
+            ]
+          },
+          {
+            title: "Tools and Pipelines",
+            bullets: [
+              "Unreal Editor tools in C++, Python, and Blueprint",
+              "Maya automation, data validation, and batch workflows",
+              "Perforce-friendly tooling and release hygiene"
+            ]
+          },
+          {
+            title: "Rendering Collaboration",
+            bullets: [
+              "Material optimization and shader complexity debugging",
+              "Artifact triage with a rendering-debug mindset",
+              "Cross-discipline support for durable engine-side fixes"
+            ]
+          }
+        ],
+        links: {
+          linkedin: "https://www.linkedin.com/in/YOUR_LINKEDIN",
+          resume: "https://YOUR_RESUME_LINK",
+          email: "mailto:you@example.com"
+        }
+      };
+
+      const PORTFOLIO = [
+        {
+          id: "shadow-depth-optimization",
+          title: "Shadow Depth Pass Optimization",
+          short:
+            "Brought Shadow Depths from about 4 ms to 2 ms using content and cvar tuning, trace-driven validation, and scalable constraints.",
+          thumb:
+            "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=60",
+          hero:
+            "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1600&q=60",
+          description:
+            "A practical optimization pass focused on shadow casting content, cascade strategy, and measurable wins through Unreal Insights and stat GPU.",
+          problem:
+            "GPU Shadow Depths was a top cost in representative gameplay scenes, especially with dense foliage and multiple dynamic lights.",
+          solution:
+            "I audited shadow casters, improved LODs and cull behavior, tuned resolution and cascades, and validated the changes through comparable performance captures.",
+          extra: [
+            {
+              title: "Breakdown Capture",
+              image:
+                "https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1600&q=60",
+              caption:
+                "Use this slot for before and after captures, trace screenshots, or annotated GPU breakdowns."
+            }
+          ]
+        },
+        {
+          id: "world-partition-tooling",
+          title: "World Partition Content Tooling",
+          short:
+            "Editor tooling to batch-fix streaming metadata, validate actor labels, and enforce naming conventions across large maps.",
+          thumb:
+            "https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=800&q=60",
+          hero:
+            "https://images.unsplash.com/photo-1523961131990-5ea7c61b2107?auto=format&fit=crop&w=1600&q=60",
+          description:
+            "Automation utilities to keep large worlds consistent across naming, streaming ranges, validation, and batch operations.",
+          problem:
+            "Large teams and procedural placement created inconsistencies in naming, streaming settings, and validation, which increased review overhead and caused regressions.",
+          solution:
+            "I shipped editor utilities and Python scripts to enforce conventions, automate bulk fixes, and catch issues earlier in the content pipeline.",
+          extra: []
+        },
+        {
+          id: "maya-skinweights",
+          title: "Maya Skin Weights Export and Import Pipeline",
+          short:
+            "JSON-based skin weight exporter and importer with robust influence matching, batch operations, and actionable error reporting.",
+          thumb:
+            "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=800&q=60",
+          hero:
+            "https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1600&q=60",
+          description:
+            "A lightweight, production-minded skin weights pipeline built for repeatability, resilience, and debugging.",
+          problem:
+            "Artists needed a dependable way to transfer skin weights between meshes in different scenes while preserving influence fidelity.",
+          solution:
+            "I implemented export and import utilities that serialize weights and influences to JSON, handle missing influences gracefully, and provide readable logs.",
+          extra: []
+        }
+      ];
+
+      function getRoute() {
+        const hash = window.location.hash || "#/";
+        const parts = hash.replace(/^#/, "").split("/").filter(Boolean);
+
+        if (parts.length === 0) return { name: "home" };
+        if (parts[0] === "about") return { name: "about" };
+        if (parts[0] === "work" && parts[1]) return { name: "work", id: parts[1] };
+        return { name: "home" };
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#39;");
+      }
+
+      function pageTitle(title, subtitle) {
+        return `
+          <section class="page-title">
+            <h1>${escapeHtml(title)}</h1>
+            ${subtitle ? `<p>${escapeHtml(subtitle)}</p>` : ""}
+          </section>
+        `;
+      }
+
+      function homePage() {
+        return `
+          <div class="page">
+            <section class="hero">
+              <div class="hero-kicker">Portfolio Site</div>
+              <div class="hero-grid">
+                <div class="hero-copy">
+                  <div class="page-title">
+                    <h1>${escapeHtml(BRAND.name)}</h1>
+                    <p>${escapeHtml(ABOUT.blurb)}</p>
+                  </div>
+                  <div class="cta-row">
+                    <a class="button primary" href="#/about">About Me</a>
+                    <a class="button" href="${escapeHtml(ABOUT.links.resume)}" target="_blank" rel="noreferrer">Resume</a>
+                    <a class="button" href="${escapeHtml(ABOUT.links.email)}">Email</a>
+                  </div>
+                </div>
+                <div class="hero-facts">
+                  <div class="stat-card">
+                    <strong>Performance</strong>
+                    <span>Optimization passes grounded in trace data, content constraints, and measurable results.</span>
+                  </div>
+                  <div class="stat-card">
+                    <strong>Tools</strong>
+                    <span>Editor utilities, automation, and validation workflows that reduce repetitive production work.</span>
+                  </div>
+                  <div class="stat-card">
+                    <strong>Pipelines</strong>
+                    <span>Cross-discipline solutions that help art and engineering move faster together.</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="page">
+              <div class="section-heading">
+                <div>
+                  <h2>Selected Work</h2>
+                  <p>Focused case studies in performance, tooling, and technical art workflow design.</p>
+                </div>
+              </div>
+              <div class="portfolio-grid">
+                ${PORTFOLIO.map(portfolioCard).join("")}
+              </div>
+            </section>
+
+            <section class="note">
+              <strong>Ready for your real content</strong>
+              <p>This version is now live as the site homepage. The structure is in place; the next polish pass is swapping placeholder links, text, and images for your final portfolio material.</p>
+            </section>
+          </div>
+        `;
+      }
+
+      function portfolioCard(piece) {
+        return `
+          <article class="portfolio-card card" onclick="window.location.hash='#/work/${escapeHtml(piece.id)}'">
+            <img src="${escapeHtml(piece.thumb)}" alt="${escapeHtml(piece.title)}">
+            <div class="portfolio-card-body">
+              <div class="portfolio-card-head">
+                <h3>${escapeHtml(piece.title)}</h3>
+                <span class="chip">View</span>
+              </div>
+              <p>${escapeHtml(piece.short)}</p>
+            </div>
+          </article>
+        `;
+      }
+
+      function aboutPage() {
+        return `
+          <div class="page">
+            ${pageTitle("About", ABOUT.blurb)}
+            <section class="about-grid">
+              <div class="stack">
+                <article class="card">
+                  <div class="card-body">
+                    <h3>Core Skills</h3>
+                    <div class="skills-grid">
+                      ${ABOUT.skills
+                        .map(
+                          (skill) => `
+                            <section class="skill-card">
+                              <h3>${escapeHtml(skill.title)}</h3>
+                              <ul class="list">
+                                ${skill.bullets.map((bullet) => `<li>${escapeHtml(bullet)}</li>`).join("")}
+                              </ul>
+                            </section>
+                          `
+                        )
+                        .join("")}
+                    </div>
+                  </div>
+                </article>
+                <article class="card">
+                  <div class="card-body">
+                    <h3>What I Do</h3>
+                    ${ABOUT.story.map((paragraph) => `<p>${escapeHtml(paragraph)}</p>`).join("")}
+                  </div>
+                </article>
+              </div>
+              <aside class="stack">
+                <article class="card">
+                  <div class="card-body">
+                    <h3>Links</h3>
+                    <div class="link-list">
+                      ${externalLink("LinkedIn", ABOUT.links.linkedin, true)}
+                      ${externalLink("Resume", ABOUT.links.resume, true)}
+                      ${externalLink("Email", ABOUT.links.email, false)}
+                    </div>
+                  </div>
+                </article>
+                <section class="info-panel">
+                  <h3>Quick Notes</h3>
+                  <ul class="quick-notes">
+                    <li>Replace the placeholder links with your real profile, resume, and email.</li>
+                    <li>Updating each project with outcomes and numbers will make the site much stronger.</li>
+                    <li>You can add more portfolio entries by extending the PORTFOLIO array in this file.</li>
+                  </ul>
+                </section>
+              </aside>
+            </section>
+          </div>
+        `;
+      }
+
+      function externalLink(label, href, external) {
+        return `
+          <a class="external-link" href="${escapeHtml(href)}" ${external ? 'target="_blank" rel="noreferrer"' : ""}>
+            <span>${escapeHtml(label)}</span>
+            <span class="muted">${external ? "Open" : "Send"}</span>
+          </a>
+        `;
+      }
+
+      function workPage(id) {
+        const piece = PORTFOLIO.find((item) => item.id === id);
+
+        if (!piece) {
+          return `
+            <div class="page">
+              ${pageTitle("Not Found", "That portfolio piece does not exist.")}
+              <div>
+                <a class="button" href="#/">Back to Home</a>
+              </div>
+            </div>
+          `;
+        }
+
+        const extraBlocks = piece.extra.length ? piece.extra : [{}, {}];
+
+        return `
+          <div class="work-layout">
+            <div class="breadcrumb-row">
+              <a class="button" href="#/">Home</a>
+              <div class="breadcrumb">
+                <span>Portfolio</span>
+                <span>/</span>
+                <span>${escapeHtml(piece.title)}</span>
+              </div>
+            </div>
+
+            <section class="page-title">
+              <h1>${escapeHtml(piece.title)}</h1>
+              <p>${escapeHtml(piece.description)}</p>
+            </section>
+
+            <div class="hero-image">
+              <img src="${escapeHtml(piece.hero)}" alt="${escapeHtml(piece.title)}">
+            </div>
+
+            <section class="detail-grid">
+              <article class="card">
+                <div class="card-body">
+                  <h3 class="detail-title">Short Description</h3>
+                  <p class="detail-copy">${escapeHtml(piece.short)}</p>
+                </div>
+              </article>
+              <article class="card">
+                <div class="card-body">
+                  <div class="eyebrow">Problem</div>
+                  <p class="detail-copy">${escapeHtml(piece.problem)}</p>
+                  <div class="eyebrow" style="margin-top: 18px;">Solution</div>
+                  <p class="detail-copy">${escapeHtml(piece.solution)}</p>
+                </div>
+              </article>
+            </section>
+
+            <section class="page">
+              <div class="section-heading">
+                <div>
+                  <h2>Additional Photos and Notes</h2>
+                  <p>Use this area for screenshots, trace captures, annotated diagrams, or implementation notes.</p>
+                </div>
+              </div>
+              <div class="extra-grid">
+                ${extraBlocks
+                  .map(
+                    (block) => `
+                      <article class="card">
+                        <div class="card-body">
+                          <h3>${escapeHtml(block.title || "Placeholder Section")}</h3>
+                          ${
+                            block.image
+                              ? `<div class="extra-image"><img src="${escapeHtml(block.image)}" alt="${escapeHtml(block.title || "Portfolio extra image")}"></div>`
+                              : `<div class="placeholder">Add an image and caption here.</div>`
+                          }
+                          <p>${escapeHtml(block.caption || "Use this area for concise notes, before and after comparisons, or step-by-step breakdowns.")}</p>
+                        </div>
+                      </article>
+                    `
+                  )
+                  .join("")}
+              </div>
+            </section>
+          </div>
+        `;
+      }
+
+      function render() {
+        const route = getRoute();
+        const app = document.getElementById("app");
+        const footerCopy = document.getElementById("footer-copy");
+        const footerLinkedIn = document.getElementById("footer-linkedin");
+        const footerResume = document.getElementById("footer-resume");
+        const footerEmail = document.getElementById("footer-email");
+
+        footerCopy.textContent = "(c) " + new Date().getFullYear() + " " + BRAND.name;
+        footerLinkedIn.href = ABOUT.links.linkedin;
+        footerResume.href = ABOUT.links.resume;
+        footerEmail.href = ABOUT.links.email;
+
+        if (route.name === "about") {
+          app.innerHTML = aboutPage();
+        } else if (route.name === "work") {
+          app.innerHTML = workPage(route.id);
+        } else {
+          app.innerHTML = homePage();
+        }
+
+        document.querySelectorAll("[data-route-link]").forEach((link) => {
+          const active = (window.location.hash || "#/") === link.getAttribute("href");
+          link.classList.toggle("active", active);
+        });
+      }
+
+      window.addEventListener("hashchange", render);
+      render();
+    </script>
   </body>
 </html>
