@@ -84,15 +84,14 @@ a { color: inherit; text-decoration: none; }
 
 .nav button,
 .nav a,
-.game-link,
 .close {
   min-height: 34px;
   border: 2px solid var(--line);
   border-radius: var(--radius);
   background: var(--panel-lighter);
   color: var(--ink);
-  padding: 6px 11px;
-  font-size: 13px;
+  padding: 6px 10px;
+  font-size: clamp(8px,8vw, 12px);
   font-weight: 800;
   box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.44);
 }
@@ -100,7 +99,6 @@ a { color: inherit; text-decoration: none; }
 .nav button:hover,
 .nav a:hover,
 .tile:hover,
-.game-link:hover,
 .close:hover {
   transform: translate(-2px, -2px);
   box-shadow: 6px 6px 0 rgba(25, 27, 27, 0.34);
@@ -156,13 +154,14 @@ a { color: inherit; text-decoration: none; }
 h1 {
   margin: 0;
   max-width: 820px;
-  font-size: clamp(42px, 8vw, 96px);
+  font-size: clamp(24px, 8vw, 53px);
   line-height: 0.92;
   letter-spacing: 0;
 }
 
 .hero-copy,
-.copy-card p {
+.copy-card p,
+.rich-text {
   color: var(--muted);
   line-height: 1.55;
 }
@@ -172,7 +171,42 @@ h1 {
   font-size: clamp(16px, 2vw, 20px);
 }
 
-.game-jump {
+.rich-text p {
+  margin: 0;
+}
+
+.rich-text p + p,
+.rich-text p + ul,
+.rich-text ul + p {
+  margin-top: 14px;
+}
+
+.rich-text ul,
+.rich-text ol {
+  margin: 0;
+  padding-left: 22px;
+}
+
+.rich-text li + li {
+  margin-top: 6px;
+}
+
+.rich-text strong {
+  color: var(--ink);
+  font-weight: 900;
+}
+
+.rich-text em {
+  color: var(--ink);
+}
+
+.rich-text a {
+  color: #77d6ff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+#topGameLinks {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -222,7 +256,7 @@ h1 {
   line-height: 1.55;
 }
 
-.about-copy p {
+.about-copy .rich-text {
   max-width: 720px;
   margin: 8px 0 0;
 }
@@ -265,6 +299,10 @@ h1 {
   background-position: center;
   border-bottom: 2px solid var(--line);
   box-shadow: inset 0 0 0 1px rgba(238, 241, 239, 0.12);
+}
+
+.game-banner.banner-top {
+  background-position: top center;
 }
 
 .game-banner-inner {
@@ -317,16 +355,20 @@ h2 {
   object-fit: cover;
 }
 
+.tile-top-image .tile-media img {
+  object-position: top center;
+}
+
 .tile-body {
   display: flex;
   align-items: center;
-  min-height: 72px;
-  padding: 14px;
+  min-height: 24px;
+  padding: 8px;
 }
 
 .tile h3 {
   margin: 0;
-  font-size: clamp(18px, 2.2vw, 26px);
+  font-size: clamp(18px, 2.2vw, 18px);
   line-height: 1.05;
 }
 
@@ -490,16 +532,12 @@ h2 {
   padding: clamp(16px, 3vw, 28px);
 }
 
-.description-panel p {
+.description-panel .rich-text {
   max-width: 840px;
   margin: 0;
   color: var(--ink);
   font-size: 17px;
   line-height: 1.58;
-}
-
-.description-panel p + p {
-  margin-top: 16px;
 }
 
 .footer {
